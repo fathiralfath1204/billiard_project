@@ -25,13 +25,13 @@
                     <table class="min-w-full divide-y divide-gray-200 border">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pelanggan</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Meja</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mulai Jam</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Bayar</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -52,24 +52,24 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $booking->total_price == 0 ? '-' : 'Rp '.number_format($booking->total_price, 0, ',', '.') }}
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm">
-    @if($booking->status == 'active')
-        <form action="{{ route('bookings.checkout', $booking->id) }}" method="POST" onsubmit="return confirm('Selesaikan sewa meja untuk pelanggan ini?')">
-            @csrf
-            @method('PATCH')
-            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-xs uppercase tracking-wider">
-                Selesai / Stop
-            </button>
-        </form>
-    @else
-        <span class="text-xs text-gray-400 font-semibold italic">Selesai Terpaut</span>
-    @endif
-</td>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                        @if($booking->status == 'active')
+                                            <form action="{{ route('bookings.checkout', $booking->id) }}" method="POST" onsubmit="return confirm('Selesaikan sewa meja untuk pelanggan ini?')" class="inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-red-600 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-wider hover:bg-red-700 active:bg-red-900 focus:outline-none transition ease-in-out duration-150">
+                                                    Selesai / Stop
+                                                </button>
+                                            </form>
+                                        @else
+                                            <span class="text-xs text-gray-400 font-semibold italic">Arsip Transaksi</span>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">Belum ada transaksi sewa meja hari ini.</td>
+                                    <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">Belum ada transaksi sewa meja hari ini.</td>
                                 </tr>
                             @endforelse
                         </tbody>
