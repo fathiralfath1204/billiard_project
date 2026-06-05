@@ -25,6 +25,7 @@
                     <table class="min-w-full divide-y divide-gray-200 border">
                         <thead class="bg-gray-50">
                             <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pelanggan</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Meja</th>
@@ -51,6 +52,19 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $booking->total_price == 0 ? '-' : 'Rp '.number_format($booking->total_price, 0, ',', '.') }}
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+    @if($booking->status == 'active')
+        <form action="{{ route('bookings.checkout', $booking->id) }}" method="POST" onsubmit="return confirm('Selesaikan sewa meja untuk pelanggan ini?')">
+            @csrf
+            @method('PATCH')
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-xs uppercase tracking-wider">
+                Selesai / Stop
+            </button>
+        </form>
+    @else
+        <span class="text-xs text-gray-400 font-semibold italic">Selesai Terpaut</span>
+    @endif
+</td>
                                     </td>
                                 </tr>
                             @empty

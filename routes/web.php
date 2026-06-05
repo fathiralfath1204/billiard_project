@@ -32,3 +32,4 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 });
 Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+Route::patch('/bookings/{id}/checkout', [BookingController::class, 'checkout'])->name('bookings.checkout');
