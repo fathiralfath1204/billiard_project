@@ -18,3 +18,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+use App\Http\Controllers\TableBilliardController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('tables', TableBilliardController::class);
+});
