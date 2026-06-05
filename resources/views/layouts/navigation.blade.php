@@ -10,10 +10,20 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Navigation Links (Tampilan Laptop) -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    
+                    <!-- Menu Manajemen Meja -->
+                    <x-nav-link :href="route('tables.index')" :active="request()->routeIs('tables.*')">
+                        {{ __('Manajemen Meja') }}
+                    </x-nav-link>
+
+                    <!-- Menu Booking Meja -->
+                    <x-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.*')">
+                        {{ __('Booking Meja') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -64,11 +74,21 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
+    <!-- Responsive Navigation Menu (Tampilan HP) -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            
+            <!-- Menu Responsive Manajemen Meja -->
+            <x-responsive-nav-link :href="route('tables.index')" :active="request()->routeIs('tables.*')">
+                {{ __('Manajemen Meja') }}
+            </x-responsive-nav-link>
+
+            <!-- Menu Responsive Booking Meja -->
+            <x-responsive-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.*')">
+                {{ __('Booking Meja') }}
             </x-responsive-nav-link>
         </div>
 
