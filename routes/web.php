@@ -24,3 +24,10 @@ use App\Http\Controllers\TableBilliardController;
 Route::middleware(['auth'])->group(function () {
     Route::resource('tables', TableBilliardController::class);
 });
+
+use App\Http\Controllers\BookingController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+});
