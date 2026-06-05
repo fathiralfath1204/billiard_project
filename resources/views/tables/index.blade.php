@@ -44,12 +44,26 @@
                                             {{ ucfirst($table->status) }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-center flex justify-center space-x-2">
-                                        <a href="{{ route('tables.edit', $table->id) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400">Edit</a>
-                                        <form action="{{ route('tables.destroy', $table->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus meja ini?')">
+                                    <td class="px-6 py-4 text-center flex justify-center items-center space-x-4">
+                                        <!-- Logika Tombol Mulai Sewa / Penanda Terpakai -->
+                                        @if($table->status == 'available')
+                                            <a href="{{ route('bookings.create', ['table_id' => $table->id]) }}" class="inline-flex items-center px-2.5 py-1 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-wider hover:bg-blue-700 active:bg-blue-900 focus:outline-none transition ease-in-out duration-150">
+                                                Mulai Sewa
+                                            </a>
+                                        @else
+                                            <span class="text-xs text-red-500 dark:text-red-400 font-bold uppercase tracking-wider">
+                                                Sedang Main
+                                            </span>
+                                        @endif
+
+                                        <span class="text-gray-300 dark:text-gray-600">|</span>
+
+                                        <a href="{{ route('tables.edit', $table->id) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 text-xs font-semibold uppercase">Edit</a>
+                                        
+                                        <form action="{{ route('tables.destroy', $table->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus meja ini?')" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900 ml-2">Hapus</button>
+                                            <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 text-xs font-semibold uppercase">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
