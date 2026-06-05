@@ -8,9 +8,15 @@ class TableBilliard extends Model
 {
     // Tambahkan baris ini untuk memberi izin input data ke kolom-kolom berikut:
     protected $fillable = [
+        
         'number_table',
         'type',
         'price_per_hour',
         'status',
     ];
+    public function bookings()
+{
+    return $this->hasMany(Booking::class);
 }
+}
+
