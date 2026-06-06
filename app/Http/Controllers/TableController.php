@@ -15,9 +15,16 @@ class TableController extends Controller
     public function create() { return view('tables.create'); }
     
     public function store(Request $request) {
-        $request->validate(['number_table' => 'required', 'price_per_hour' => 'required|numeric']);
-        TableBilliard::create($request->all());
-        return redirect()->route('tables.index');
+        // Validasi ditambah agar status defaultnya langsung 'available' jika tidak diisi
+        $validated = $request->validate([
+            'number_table' => 'required|string|max:10',
+            'type' => 'required|string',
+            'price_per_hour' => 'required|numeric',
+        ]);
+
+        TableBilliard::create($validated + ['status' => 'available']);
+        
+        return redirect()->route('tables.index')->with('success', 'Meja berhasil ditambahkan!');
     }
 
     public function edit($id) {
@@ -27,12 +34,19 @@ class TableController extends Controller
 
     public function update(Request $request, $id) {
         $table = TableBilliard::findOrFail($id);
-        $table->update($request->all());
-        return redirect()->route('tables.index');
+        
+        $validated = $request->validate([
+            'number_table' => 'required|string',
+            'price_per_hour' => 'required|numeric',
+            'status' => 'required|in:available,occupied',
+        ]);
+
+        $table->update($validated);
+        return redirect()->route('tables.index')->with('success', 'Data meja berhasil diupdate!');
     }
 
     public function destroy($id) {
         TableBilliard::findOrFail($id)->delete();
-        return redirect()->route('tables.index');
+        return redirect()->route('tables.index')->with('success', 'Meja berhasil dihapus!');
     }
 }

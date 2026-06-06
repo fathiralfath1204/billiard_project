@@ -90,3 +90,25 @@
         </div>
     </div>
 </x-app-layout>
+<x-app-layout>
+    <div class="py-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-6">Daftar Meja Biliar</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                @forelse($tables as $table)
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border">
+                        <h3 class="text-lg font-bold">Meja {{ $table->number_table }}</h3>
+                        <p class="text-sm text-gray-500">{{ $table->type }}</p>
+                        <p class="font-bold text-emerald-600">Rp {{ number_format($table->price_per_hour) }}/jam</p>
+                        <span class="text-xs font-bold px-2 py-1 rounded {{ $table->status == 'available' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                            {{ strtoupper($table->status) }}
+                        </span>
+                    </div>
+                @empty
+                    <p>Belum ada meja yang terdaftar di database.</p>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</x-app-layout>

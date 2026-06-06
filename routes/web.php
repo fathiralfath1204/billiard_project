@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExternalApiController;
+use App\Http\Controllers\TableController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,3 +36,4 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
 Route::patch('/bookings/{id}/checkout', [BookingController::class, 'checkout'])->name('bookings.checkout');
 Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
+Route::resource('tables', TableController::class);
