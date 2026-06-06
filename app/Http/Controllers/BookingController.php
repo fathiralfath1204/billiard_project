@@ -15,9 +15,15 @@ class BookingController extends Controller
         return view('bookings.index', compact('bookings'));
     }
 
+    // FUNGSI BARU UNTUK ARSIP/DETAIL
+    public function show($id)
+    {
+        $booking = Booking::with('tableBilliard')->findOrFail($id);
+        return view('bookings.show', compact('booking'));
+    }
+
     public function create(Request $request)
     {
-        // Mengambil ID meja dari kiriman tombol di halaman Manajemen Meja
         $tableId = $request->query('table_id');
         $table = TableBilliard::findOrFail($tableId);
 
@@ -31,7 +37,6 @@ class BookingController extends Controller
             'customer_name' => 'required|string|max:255',
         ]);
 
-        // 1. Buat data transaksi booking baru
         Booking::create([
             'table_billiard_id' => $validated['table_billiard_id'],
             'customer_name' => $validated['customer_name'],
@@ -39,7 +44,6 @@ class BookingController extends Controller
             'status' => 'active',
         ]);
 
-        // 2. Ubah status meja biliar menjadi 'occupied' (terpakai)
         $table = TableBilliard::find($validated['table_billiard_id']);
         $table->update(['status' => 'occupied']);
 
@@ -50,23 +54,18 @@ class BookingController extends Controller
     {
         $booking = Booking::with('tableBilliard')->findOrFail($id);
         
-        // Catat waktu selesai bermain sekarang
         $booking->end_time = now();
         
-        // Hitung selisih waktu bermain
         $startTime = Carbon::parse($booking->start_time);
         $endTime = Carbon::parse($booking->end_time);
         
-        // Hitung durasi dalam satuan jam (minimal dihitung 0.1 jam atau 6 menit agar tarif tidak Rp 0 jika baru coba-coba klik)
         $durationInHours = max($startTime->diffInMinutes($endTime) / 60, 0.1);
         
-        // Hitung total harga berdasarkan harga meja per jam
         $pricePerHour = $booking->tableBilliard->price_per_hour ?? 0;
         $booking->total_price = round($durationInHours * $pricePerHour);
         $booking->status = 'completed';
         $booking->save();
 
-        // Kembalikan status meja biliar menjadi 'available' (bisa disewa kembali)
         if ($booking->tableBilliard) {
             $booking->tableBilliard->update(['status' => 'available']);
         }
