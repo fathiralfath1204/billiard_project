@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-extrabold text-2xl text-slate-800 dark:text-slate-200 leading-tight tracking-tight flex items-center">
-            <span class="mr-2">⚙️</span> {{ __('Manajemen Meja Billiard') }}
+            <span class="mr-2"></span> {{ __('Manajemen Meja Billiard') }}
         </h2>
     </x-slot>
 

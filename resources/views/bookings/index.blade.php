@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-extrabold text-2xl text-slate-800 dark:text-slate-200 leading-tight tracking-tight flex items-center">
-            <span class="mr-2">📝</span> {{ __('Daftar Transaksi Booking Meja') }}
+            <span class="mr-2"></span> {{ __('Daftar Transaksi Booking Meja') }}
         </h2>
     </x-slot>
 
@@ -59,7 +59,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-xs text-slate-600 dark:text-gray-300 font-semibold">
                                         <span class="flex items-center text-indigo-600 dark:text-indigo-400">
-                                            <span class="mr-1.5">⏰</span> {{ $booking->start_time }}
+                                            <span class="mr-1.5"></span> {{ $booking->start_time }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -88,12 +88,12 @@
                                                 @csrf
                                                 @method('PATCH')
                                                 <button type="submit" class="inline-flex justify-center items-center px-4 py-2 bg-rose-600 border border-transparent rounded-xl font-bold text-xs text-white uppercase tracking-wider hover:bg-rose-700 shadow-sm transition duration-150">
-                                                    🛑 Selesai / Stop
+                                                     Selesai / Stop
                                                 </button>
                                             </form>
                                         @else
                                             <a href="{{ route('bookings.show', $booking->id) }}" class="inline-flex justify-center items-center px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-xl font-bold text-xs text-slate-600 dark:text-gray-300 uppercase tracking-wider transition duration-150">
-                                                🗃️ Arsip
+                                                 Arsip
                                             </a>
                                         @endif
                                     </td>
@@ -101,7 +101,7 @@
                             @empty
                                 <tr>
                                     <td colspan="7" class="p-12 text-center">
-                                        <span class="text-4xl block mb-2">📋</span>
+                                        <span class="text-4xl block mb-2"></span>
                                         <p class="text-slate-500 dark:text-gray-400 text-sm font-medium">Belum ada transaksi sewa meja hari ini.</p>
                                     </td>
                                 </tr>
