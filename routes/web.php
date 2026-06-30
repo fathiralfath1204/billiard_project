@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportController;
@@ -26,22 +27,24 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('tables', TableBilliardController::class);
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 });
 
-Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
-Route::patch('/bookings/{id}/checkout', [BookingController::class, 'checkout'])->name('bookings.checkout');
-Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
-Route::resource('tables', TableController::class);
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+    Route::patch('/bookings/{id}/checkout', [BookingController::class, 'checkout'])->name('bookings.checkout');
+    Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
+    Route::resource('tables', TableController::class);
+});
 
 // ================= TRANSAKSI & LAPORAN =================
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
 
     // Transaksi
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
@@ -56,6 +59,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // ================= MENU MAKANAN & MINUMAN =================
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('products', ProductController::class);
 });
+
+// ================= LOGIN ADMIN =================
+Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
