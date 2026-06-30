@@ -20,4 +20,10 @@ class Booking extends Model
     {
         return $this->belongsTo(TableBilliard::class);
     }
+
+    // Hubungkan ke Transaction
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
 }

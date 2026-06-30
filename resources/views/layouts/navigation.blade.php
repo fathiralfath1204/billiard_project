@@ -25,6 +25,16 @@
                     <x-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.*')">
                         {{ __('Booking Meja') }}
                     </x-nav-link>
+
+                    <!-- Menu Transaksi -->
+                    <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
+                        {{ __('Transaksi') }}
+                    </x-nav-link>
+
+                    <!-- Menu Laporan -->
+                    <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
+                        {{ __('Laporan') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -89,6 +99,16 @@
             <!-- Menu Responsive Booking Meja -->
             <x-responsive-nav-link :href="route('bookings.index')" :active="request()->routeIs('bookings.*')">
                 {{ __('Booking Meja') }}
+            </x-responsive-nav-link>
+
+            <!-- Menu Responsive Transaksi -->
+            <x-responsive-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
+                {{ __('Transaksi') }}
+            </x-responsive-nav-link>
+
+            <!-- Menu Responsive Laporan -->
+            <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
+                {{ __('Laporan') }}
             </x-responsive-nav-link>
         </div>
 

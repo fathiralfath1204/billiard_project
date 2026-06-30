@@ -54,7 +54,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="px-2.5 py-1 text-xs font-extrabold rounded-lg bg-slate-100 dark:bg-gray-700 text-slate-700 dark:text-gray-200">
-                                            🎱 {{ $booking->tableBilliard->number_table ?? 'Meja Dihapus' }}
+                                             {{ $booking->tableBilliard->number_table ?? 'Meja Dihapus' }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-xs text-slate-600 dark:text-gray-300 font-semibold">

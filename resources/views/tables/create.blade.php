@@ -22,7 +22,7 @@
                         <select name="type" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white">
                             <option value="Reguler">Reguler</option>
                             <option value="VIP">VIP</option>
-                            <option value="VVIP">VVIP</option>
+                            <option value="VVIP">VVVIP</option>
                         </select>
                     </div>
 

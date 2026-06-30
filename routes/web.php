@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExternalApiController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\TableBilliardController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,19 +25,31 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-use App\Http\Controllers\TableBilliardController;
-
 Route::middleware(['auth'])->group(function () {
     Route::resource('tables', TableBilliardController::class);
 });
-
-use App\Http\Controllers\BookingController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 });
+
 Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
 Route::patch('/bookings/{id}/checkout', [BookingController::class, 'checkout'])->name('bookings.checkout');
 Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
 Route::resource('tables', TableController::class);
+
+// ================= TRANSAKSI & LAPORAN =================
+Route::middleware(['auth'])->group(function () {
+
+    // Transaksi
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+    Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
+    Route::get('/transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
+    Route::patch('/transactions/{transaction}/status', [TransactionController::class, 'updateStatus'])->name('transactions.updateStatus');
+
+    // Laporan
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
+});
