@@ -35,6 +35,11 @@
                     <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
                         {{ __('Laporan') }}
                     </x-nav-link>
+
+                    <!-- Menu Makanan & Minuman -->
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                        {{ __('Menu Makanan & Minuman') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -109,6 +114,11 @@
             <!-- Menu Responsive Laporan -->
             <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
                 {{ __('Laporan') }}
+            </x-responsive-nav-link>
+
+            <!-- Menu Responsive Makanan & Minuman -->
+            <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                {{ __('Menu Makanan & Minuman') }}
             </x-responsive-nav-link>
         </div>
 

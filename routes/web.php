@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
@@ -52,4 +53,9 @@ Route::middleware(['auth'])->group(function () {
     // Laporan
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 
+});
+
+// ================= MENU MAKANAN & MINUMAN =================
+Route::middleware(['auth'])->group(function () {
+    Route::resource('products', ProductController::class);
 });
