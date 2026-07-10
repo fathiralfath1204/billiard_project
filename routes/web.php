@@ -27,24 +27,24 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'admin'])->group(function () {
+// ================= MANAJEMEN MEJA =================
+Route::middleware(['auth'])->group(function () {
     Route::resource('tables', TableBilliardController::class);
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+// ================= BOOKING MEJA =================
+Route::middleware(['auth'])->group(function () {
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
-});
-
-Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
     Route::patch('/bookings/{id}/checkout', [BookingController::class, 'checkout'])->name('bookings.checkout');
     Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
-    Route::resource('tables', TableController::class);
 });
 
+Route::resource('tables', TableController::class);
+
 // ================= TRANSAKSI & LAPORAN =================
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     // Transaksi
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // ================= MENU MAKANAN & MINUMAN =================
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::resource('products', ProductController::class);
 });
 

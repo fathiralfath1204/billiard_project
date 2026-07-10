@@ -29,7 +29,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name'     => 'required|string|max:255',
-            'category' => 'required|in:makanan,minuman',
+            'category' => 'required|in:makanan,minumn',
             'price'    => 'required|numeric|min:0',
             'stock'    => 'required|integer|min:0',
             'status'   => 'required|in:aktif,nonaktif',
